@@ -5,10 +5,12 @@ html {
 }
 body {
   height: 100vh;
-  font: 1.6rem Helvetica,Arial;
+  font: 1.6rem Helvetica,Arial, sans-serif;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8f8;
+  
 }
 #root {
   height: 100%;
@@ -47,6 +49,9 @@ footer {
   justify-content: space-between;
   align-items: center;
 }
+.row.top {
+  align-items: flex-start;
+}
 h1 {
   font-size: 1.8rem;
   padding: 1rem 0;
@@ -61,6 +66,14 @@ a {
 }
 a:hover {
   color: #f08040;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+li {
+  margin-top: 1rem;
 }
 /* Header */
 header a{
@@ -89,6 +102,9 @@ img.medium {
   max-width: 29rem;
   width:100%;
 }
+img.large {
+  width: 90%;
+}
 /* Card */
 .card {
   border: 0.1rem #c0c0c0 solid;
@@ -104,9 +120,46 @@ img.medium {
 }
 .price {
   font-size: 2rem;
+  
 }
 /* rating */
 .rating span {
   color: #f0c040;
   margin: 0.1rem;
+}
+.rating span:last-child {
+  color: #404040;
+}
+.col-1 {
+  flex: 1 1 25rem;
+}
+.col-2 {
+  flex: 2 1 50rem;
+}
+/* Alert */
+.success {
+  color: #20a020;
+}
+.error {
+  color: red;
+}
+button {
+  padding: 1rem;
+  border-radius: 0;
+  border:0.1rem #a4a4a4 solid;
+  font-size:1.6rem;
+  font-family:  Helvetica,Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+button.primary {
+  background-color: #f0c040;
+}
+button.block {
+  width: 100%;
+}
+button:hover {
+  border: 0.1rem #404040 solid;
 }
