@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/Souheil120366/Amazona#readme",
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
     "mongoose": "^6.3.3"
   },
   "devDependencies": {
