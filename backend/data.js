@@ -18,7 +18,7 @@ const data = {
       ],
     products: [
         {
-            _id:'1',
+            
             name: 'Full Zip Running Shirts',
             category: 'shirts',
             image: '/images/product-1.jpg',
@@ -30,8 +30,8 @@ const data = {
             countInStock: 0,
         },
         {
-            _id:'2',
-            name: 'Full Zip Running Shirts',
+           
+            name: 'Nike Zip Running Shirts',
             category: 'shirts',
             image: '/images/product-2.jpg',
             price: 50,
@@ -42,8 +42,8 @@ const data = {
             countInStock: 6,
         },
         {
-            _id:'3',
-            name: 'Full Zip Running Shirts',
+            
+            name: 'Adidas Zip Running Shirts',
             category: 'shirts',
             image: '/images/product-3.jpg',
             price: 65,
@@ -54,8 +54,8 @@ const data = {
             countInStock: 0,
         },
         {
-            _id:'4',
-            name: 'Full Zip Running Shirts',
+           
+            name: 'Channel Zip Running Shirts',
             category: 'shirts',
             image: '/images/product-1.jpg',
             price: 68,
@@ -66,8 +66,8 @@ const data = {
             countInStock: 10,
         },
         {
-            _id:'5',
-            name: 'Full Zip Running Shirts',
+           
+            name: 'Fuck Zip Running Shirts',
             category: 'shirts',
             image: '/images/product-5.jpg',
             price: 56,
@@ -78,8 +78,8 @@ const data = {
             countInStock: 16,
         },
         {
-            _id:'6',
-            name: 'Full Zip Running Shirts',
+            
+            name: 'Hello Zip Running Shirts',
             category: 'shirts',
             image: '/images/product-6.jpg',
             price: 76,
