@@ -18,12 +18,8 @@ export default function RegisterScreen(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
-  console.log('register search',search);
   const searchSplit = search.split('=')[1];
-  console.log('register searchsplit',searchSplit);
   const redirect = search ? `${searchSplit}` : '/';
-  console.log('register redirect',redirect);
-  //const redirect = "/";
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -95,7 +91,7 @@ export default function RegisterScreen(props) {
           <label />
           <div>
             Already have an account?{' '}
-            <Link to={"/signin"}>Sign-In</Link>
+            <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
           </div>
         </div>
       </form>

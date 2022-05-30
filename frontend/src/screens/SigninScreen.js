@@ -16,10 +16,8 @@ const { userInfo, loading, error } = userSignin;
 const dispatch = useDispatch();
 const navigate = useNavigate();
 const { search } = useLocation();
-console.log('search',search);
 const searchSplit = search.split('=')[1];
-const redirect = search ? `/${searchSplit}` : '/';
-console.log('redirect',redirect);
+const redirect = search ? `${searchSplit}` : '/';
 const submitHandler = (e) => { e.preventDefault(); 
     dispatch(signin(email, password)); 
        
