@@ -8,9 +8,7 @@ import MessageBox from '../components/MessageBox';
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- // const redirect = props.location.search
- // ? props.location.search.split('=')[1]
- // : '/';
+ 
 
 const userSignin = useSelector((state) => state.userSignin);
 const { userInfo, loading, error } = userSignin;
@@ -18,18 +16,15 @@ const { userInfo, loading, error } = userSignin;
 const dispatch = useDispatch();
 const navigate = useNavigate();
 const { search } = useLocation();
+console.log('search',search);
 const searchSplit = search.split('=')[1];
 const redirect = search ? `/${searchSplit}` : '/';
+console.log('redirect',redirect);
 const submitHandler = (e) => { e.preventDefault(); 
     dispatch(signin(email, password)); 
-    console.log(error);
-   //  if (userInfo) { navigate("/")} else { navigate("/signin")};
+       
 };
- // const submitHandler = (e) => {
- //   e.preventDefault();
- //   dispatch(signin(email, password));
-    
- // };
+ 
  useEffect(() => {
     if (userInfo) {
     navigate(redirect);
@@ -73,7 +68,10 @@ const submitHandler = (e) => { e.preventDefault();
         <div>
           <label />
           <div>
-            New customer? <Link to="/register">Create your account</Link>
+            New customer?{' '}
+            <Link to={`/register?redirect=${redirect}`}>
+              Create your account
+            </Link>
           </div>
         </div>
       </form>

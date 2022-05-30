@@ -5,6 +5,7 @@ import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import SigninScreen from './screens/SigninScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import { signout } from './actions/userActions';
 
 
@@ -28,7 +29,7 @@ function App() {
           </Link>
       </div>
       <div>
-          <Link to="/cart">
+          <Link to="/cart/:id?">
               Cart
               {cartItems.length > 0 && (
                 <span className="badge">{cartItems.length}</span>
@@ -54,9 +55,10 @@ function App() {
     </header>
     <main>
       <Routes>
-        <Route path='/cart' element={<CartScreen />}></Route>
+        <Route path='/cart/:id' element={<CartScreen />}></Route>
         <Route path="/product/:id" element={<ProductScreen />}></Route>
         <Route path="/signin" element={<SigninScreen />}></Route>
+        <Route path="/register" element={<RegisterScreen/>}></Route>
         <Route path="/" element={< HomeScreen />} ></Route>
       </Routes>
       
