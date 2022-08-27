@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import seedRouter from './routes/seedRoutes.js';
@@ -6,10 +7,10 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 
-dotenv.config();
-
+//dotenv.config('mongodb+srv://admin:souh120366@cluster0.toyk8.mongodb.net/amazona?retryWrites=true&w=majority');
+//process.env.MONGODB_URI
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect('mongodb+srv://admin:souh120366@cluster0.toyk8.mongodb.net/amazona?retryWrites=true&w=majority')
   .then(() => {
     console.log('connected to db');
   })
