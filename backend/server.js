@@ -7,10 +7,9 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 
-//dotenv.config('mongodb+srv://admin:souh120366@cluster0.toyk8.mongodb.net/amazona?retryWrites=true&w=majority');
-//process.env.MONGODB_URI
+dotenv.config();
 mongoose
-  .connect('mongodb+srv://admin:souh120366@cluster0.toyk8.mongodb.net/amazona?retryWrites=true&w=majority')
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('connected to db');
   })
