@@ -6,6 +6,7 @@ import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 mongoose
@@ -18,6 +19,9 @@ mongoose
   });
 
 const app = express();
+const cors_options={origin: "www.skftechnologies.com"};
+
+app.use(cors(cors_options));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
