@@ -35,7 +35,7 @@ export default function OrderHistoryScreen() {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         const { data } = await axios.get(
-          `/api/orders/mine`,
+          `http://www.skftechnologies.com:5000/api/orders/mine`,
 
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );

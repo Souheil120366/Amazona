@@ -23,7 +23,7 @@ export default function SigninScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post('/api/users/signin', {
+      const { data } = await Axios.post('http://www.skftechnologies.com:5000/api/users/signin', {
         email,
         password,
       });

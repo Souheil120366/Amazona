@@ -8,6 +8,11 @@ import logger from 'use-reducer-logger';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import dotenv from 'dotenv';
+
+
+
+const domain_name = "http://www.skftechnologies.com:5000";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,6 +33,7 @@ function HomeScreen() {
     loading: true,
     error: '',
   });
+  
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });

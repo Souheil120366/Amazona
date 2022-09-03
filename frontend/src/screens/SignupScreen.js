@@ -30,7 +30,7 @@ export default function SignupScreen() {
       return;
     }
     try {
-      const { data } = await Axios.post('/api/users/signup', {
+      const { data } = await Axios.post('http://www.skftechnologies.com:5000/api/users/signup', {
         name,
         email,
         password,

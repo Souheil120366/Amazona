@@ -19,7 +19,7 @@ mongoose
   });
 
 const app = express();
-const cors_options={origin: "www.skftechnologies.com"};
+const cors_options={origin: "http://www.skftechnologies.com"};
 
 app.use(cors(cors_options));
 

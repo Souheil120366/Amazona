@@ -48,7 +48,7 @@ export default function PlaceOrderScreen() {
       dispatch({ type: 'CREATE_REQUEST' });
 
       const { data } = await Axios.post(
-        '/api/orders',
+        'http://www.skftechnologies.com:5000/api/orders',
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
