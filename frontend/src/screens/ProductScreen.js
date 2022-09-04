@@ -15,6 +15,8 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 
+const requestUrl = "http://www.skftechnologies.com:5000";
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -44,7 +46,7 @@ function ProductScreen() {
       try {
         
         //const result = await axios.get(`http://www.skftechnologies.com:5000/api/products/slug/${slug}`);
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get(requestUrl+`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });

@@ -12,13 +12,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CartScreen() {
+  const requestUrl = "http://www.skftechnologies.com:5000";
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`http://www.skftechnologies.com:5000/api/products/${item._id}`);
+    const { data } = await axios.get(requestUrl+`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;

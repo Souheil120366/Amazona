@@ -22,6 +22,7 @@ const reducer = (state, action) => {
 };
 
 export default function OrderHistoryScreen() {
+  const requestUrl = "http://www.skftechnologies.com:5000";
   const { state } = useContext(Store);
   const { userInfo } = state;
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function OrderHistoryScreen() {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         const { data } = await axios.get(
-          `http://www.skftechnologies.com:5000/api/orders/mine`,
+          requestUrl+`/api/orders/mine`,
 
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );
