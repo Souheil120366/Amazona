@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils';
 
 export default function SignupScreen() {
+  const requestUrl = "http://www.skftechnologies.com:5000";
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
@@ -30,7 +31,7 @@ export default function SignupScreen() {
       return;
     }
     try {
-      const { data } = await Axios.post('http://www.skftechnologies.com:5000/api/users/signup', {
+      const { data } = await Axios.post(requestUrl+'/api/users/signup', {
         name,
         email,
         password,

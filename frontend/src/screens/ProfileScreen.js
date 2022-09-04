@@ -22,6 +22,7 @@ const reducer = (state, action) => {
 };
 
 export default function ProfileScreen() {
+  const requestUrl = "http://www.skftechnologies.com:5000";
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const [name, setName] = useState(userInfo.name);
@@ -37,7 +38,7 @@ export default function ProfileScreen() {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        'http://www.skftechnologies.com:5000/api/users/profile',
+        requestUrl+'/api/users/profile',
         {
           name,
           email,

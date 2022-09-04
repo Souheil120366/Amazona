@@ -35,6 +35,7 @@ function reducer(state, action) {
   }
 }
 export default function OrderScreen() {
+  const requestUrl = "http://www.skftechnologies.com:5000";
   const { state } = useContext(Store);
   const { userInfo } = state;
 
@@ -72,7 +73,7 @@ function onApprove(data, actions) {
     try {
       dispatch({ type: 'PAY_REQUEST' });
       const { data } = await axios.put(
-        `http://www.skftechnologies.com:5000/api/orders/${order._id}/pay`,
+        requestUrl+`/api/orders/${order._id}/pay`,
         details,
         {
           headers: { authorization: `Bearer ${userInfo.token}` },
@@ -94,7 +95,7 @@ function onError(err) {
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`http://www.skftechnologies.com:5000/api/orders/${orderId}`, {
+        const { data } = await axios.get(requestUrl+`/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -114,7 +115,7 @@ function onError(err) {
           }
         } else {
           const loadPaypalScript = async () => {
-            const { data: clientId } = await axios.get('http://www.skftechnologies.com:5000/api/keys/paypal', {
+            const { data: clientId } = await axios.get(requestUrl+'/api/keys/paypal', {
               headers: { authorization: `Bearer ${userInfo.token}` },
             });
             paypalDispatch({

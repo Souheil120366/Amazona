@@ -27,6 +27,7 @@ const reducer = (state, action) => {
 };
 
 export default function PlaceOrderScreen() {
+  const requestUrl = "http://www.skftechnologies.com:5000";
   const navigate = useNavigate();
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
@@ -48,7 +49,7 @@ export default function PlaceOrderScreen() {
       dispatch({ type: 'CREATE_REQUEST' });
 
       const { data } = await Axios.post(
-        'http://www.skftechnologies.com:5000/api/orders',
+        requestUrl+'/api/orders',
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
