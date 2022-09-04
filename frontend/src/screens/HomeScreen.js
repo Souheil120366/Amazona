@@ -12,7 +12,7 @@ import dotenv from 'dotenv';
 
 
 
-const domain_name = "http://www.skftechnologies.com:5000";
+//const domain_name = "http://www.skftechnologies.com:5000";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,8 +38,8 @@ function HomeScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get('http://www.skftechnologies.com:5000/api/products');
-        //const result = await axios.get('/api/products');
+        //const result = await axios.get('http://www.skftechnologies.com:5000/api/products');
+        const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
