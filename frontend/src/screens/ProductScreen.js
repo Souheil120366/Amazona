@@ -15,8 +15,8 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 
-const requestUrl = "http://www.skftechnologies.com:5000";
-
+//const requestUrl = "http://www.skftechnologies.com:5000";
+const requestUrl = "";
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':

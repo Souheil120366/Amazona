@@ -12,8 +12,8 @@ import MessageBox from '../components/MessageBox';
 
 
 
-const requestUrl = "http://www.skftechnologies.com:5000";
-
+//const requestUrl = "http://www.skftechnologies.com:5000";
+const requestUrl = "";
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -50,7 +50,7 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>Amazona</title>
+        <title>S K F</title>
       </Helmet>
       <h1>Featured Products</h1>
       <div className="products">

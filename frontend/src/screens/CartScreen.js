@@ -12,7 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CartScreen() {
-  const requestUrl = "http://www.skftechnologies.com:5000";
+  //const requestUrl = "http://www.skftechnologies.com:5000";
+  const requestUrl = "";
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {

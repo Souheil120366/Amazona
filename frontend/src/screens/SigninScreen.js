@@ -11,7 +11,8 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils';
 
 export default function SigninScreen() {
-  const requestUrl = "http://www.skftechnologies.com:5000";
+  //const requestUrl = "http://www.skftechnologies.com:5000";
+  const requestUrl = "";
   const navigate = useNavigate(); 
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
