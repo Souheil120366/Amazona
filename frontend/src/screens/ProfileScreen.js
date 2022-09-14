@@ -22,12 +22,13 @@ const reducer = (state, action) => {
 };
 
 export default function ProfileScreen() {
-  //const requestUrl = "http://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
+  const [phone, setPhone] = useState(userInfo.phone);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -43,6 +44,7 @@ export default function ProfileScreen() {
         {
           name,
           email,
+          phone,
           password,
         },
         {
@@ -78,12 +80,22 @@ export default function ProfileScreen() {
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="name">
+        <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="phone">
+          <Form.Label>Phone Number</Form.Label>
+          
+          <Form.Control
+            type="number" 
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required
           />
         </Form.Group>

@@ -15,8 +15,8 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 
-//const requestUrl = "http://www.skftechnologies.com:5000";
-const requestUrl = "";
+const requestUrl = "https://www.skftechnologies.com:5000";
+//const requestUrl = "";
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -102,7 +102,7 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>Price : {product.price} TND</ListGroup.Item>
             <ListGroup.Item>
               Description:
               <p>{product.description}</p>
@@ -116,7 +116,7 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
-                    <Col>${product.price}</Col>
+                    <Col>{product.price} TND</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>

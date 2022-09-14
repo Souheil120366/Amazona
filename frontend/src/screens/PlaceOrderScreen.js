@@ -27,8 +27,8 @@ const reducer = (state, action) => {
 };
 
 export default function PlaceOrderScreen() {
-  //const requestUrl = "http://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const navigate = useNavigate();
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
@@ -44,7 +44,7 @@ export default function PlaceOrderScreen() {
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  
+  console.log('cart',cart);
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
@@ -59,6 +59,7 @@ export default function PlaceOrderScreen() {
           shippingPrice: cart.shippingPrice,
           taxPrice: cart.taxPrice,
           totalPrice: cart.totalPrice,
+          
         },
         {
           headers: {
@@ -74,6 +75,8 @@ export default function PlaceOrderScreen() {
       dispatch({ type: 'CREATE_FAIL' });
       toast.error(getError(err));
     }
+
+    
   };
   useEffect(() => {
     if (!cart.paymentMethod) {
@@ -131,7 +134,7 @@ export default function PlaceOrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>${item.price}</Col>
+                      <Col md={3}>{item.price} TND</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -148,19 +151,19 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>TND {cart.itemsPrice.toFixed(3)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                    <Col>TND {cart.shippingPrice.toFixed(3)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>${cart.taxPrice.toFixed(2)}</Col>
+                    <Col>TND {cart.taxPrice.toFixed(3)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -169,7 +172,7 @@ export default function PlaceOrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>${cart.totalPrice.toFixed(2)}</strong>
+                      <strong>TND {cart.totalPrice.toFixed(3)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

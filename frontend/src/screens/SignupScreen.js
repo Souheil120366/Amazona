@@ -11,8 +11,8 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils';
 
 export default function SignupScreen() {
-  //const requestUrl = "http://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
@@ -20,6 +20,7 @@ export default function SignupScreen() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -35,6 +36,7 @@ export default function SignupScreen() {
       const { data } = await Axios.post(requestUrl+'/api/users/signup', {
         name,
         email,
+        phone,
         password,
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
@@ -69,6 +71,14 @@ export default function SignupScreen() {
             type="email"
             required
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="phone">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type="number"
+            required
+            onChange={(e) => setPhone(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">

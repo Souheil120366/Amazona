@@ -12,8 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CartScreen() {
-  //const requestUrl = "http://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
@@ -87,7 +87,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>${item.price}</Col>
+                    <Col md={3}>{item.price} TND</Col>
                     <Col md={2}>
                       
                       <Button
@@ -108,11 +108,11 @@ export default function CartScreen() {
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h3>
+                  <h4>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : $
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
-                  </h3>
+                    items) : 
+                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)} TND
+                  </h4>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="d-grid">

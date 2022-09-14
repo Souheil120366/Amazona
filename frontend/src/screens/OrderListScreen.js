@@ -38,6 +38,8 @@ const reducer = (state, action) => {
   }
 };
 export default function OrderListScreen() {
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const navigate = useNavigate();
   const { state } = useContext(Store);
   const { userInfo } = state;
@@ -52,7 +54,7 @@ export default function OrderListScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/orders`, {
+        const { data } = await axios.get(requestUrl+`/api/orders`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -76,7 +78,7 @@ const deleteHandler = async (order) => {
   if (window.confirm('Are you sure to delete?')) {
     try {
       dispatch({ type: 'DELETE_REQUEST' });
-      await axios.delete(`/api/orders/${order._id}`, {
+      await axios.delete(requestUrl+`/api/orders/${order._id}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       toast.success('order deleted successfully');

@@ -52,6 +52,8 @@ const reducer = (state, action) => {
 };
 
 export default function ProductListScreen() {
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   
   const [
     {
@@ -80,7 +82,7 @@ export default function ProductListScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/products/admin?page=${page} `, {
+        const { data } = await axios.get(requestUrl+`/api/products/admin?page=${page} `, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -101,7 +103,7 @@ export default function ProductListScreen() {
       try {
         dispatch({ type: 'CREATE_REQUEST' });
         const { data } = await axios.post(
-          '/api/products',
+          requestUrl+'/api/products',
           {},
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -122,7 +124,7 @@ export default function ProductListScreen() {
   const deleteHandler = async (product) => {
     if (window.confirm('Are you sure to delete?')) {
       try {
-        await axios.delete(`/api/products/${product._id}`, {
+        await axios.delete(requestUrl+`/api/products/${product._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('product deleted successfully');

@@ -1,11 +1,21 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
-import { isAuth , isAdmin} from '../utils.js';
+import { isAuth , isAdmin, payOrderEmailTemplate} from '../utils.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
+import nodemailer from 'nodemailer';
 
 const orderRouter = express.Router();
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'khalfallah.souheil@gmail.com',
+    pass: 'eidkvkebxyjtnymz'
+  }
+});
+
 
 orderRouter.get(
   '/',
@@ -21,6 +31,7 @@ orderRouter.post(
   '/',
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    
     const newOrder = new Order({
       orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
       shippingAddress: req.body.shippingAddress,
@@ -30,6 +41,7 @@ orderRouter.post(
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
       user: req.user._id,
+      paidAt: req.paidAt,
     });
 
     const order = await newOrder.save();
@@ -112,6 +124,7 @@ orderRouter.get(
       if (order) {
         order.isDelivered = true;
         order.deliveredAt = Date.now();
+        order.paidAt = Date.now();
         await order.save();
         res.send({ message: 'Order Delivered' });
       } else {
@@ -124,7 +137,12 @@ orderRouter.get(
     '/:id/pay',
     isAuth,
     expressAsyncHandler(async (req, res) => {
-      const order = await Order.findById(req.params.id);
+      
+      const order = await Order.findById(req.params.id).populate(
+        'user',
+        'email name'
+      );
+     
       if (order) {
         order.isPaid = true;
         order.paidAt = Date.now();
@@ -136,6 +154,21 @@ orderRouter.get(
         };
   
         const updatedOrder = await order.save();
+        var mailOptions = {
+          from: 'khalfallah souheil',
+          to: `${order.user.name} <${order.user.email}>`,
+          subject: `New order ${order._id}`,
+          html: payOrderEmailTemplate(order),
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        }); 
+
         res.send({ message: 'Order Paid', order: updatedOrder });
       } else {
         res.status(404).send({ message: 'Order Not Found' });
