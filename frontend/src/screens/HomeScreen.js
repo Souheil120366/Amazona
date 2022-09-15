@@ -9,10 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
-
-
-
-const requestUrl = "https://www.skftechnologies.com";
+const requestUrl = 'https://www.skftechnologies.com:5000';
 //const requestUrl = "";
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,12 +30,12 @@ function HomeScreen() {
     loading: true,
     error: '',
   });
-  
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(requestUrl+'/api/products');
+        const result = await axios.get(requestUrl + '/api/products');
         //const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
@@ -55,10 +52,8 @@ function HomeScreen() {
       <h1>Featured Products</h1>
       <div className="products">
         {loading ? (
-          
           <LoadingBox />
         ) : error ? (
-          
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
@@ -68,7 +63,6 @@ function HomeScreen() {
               </Col>
             ))}
           </Row>
-          
         )}
       </div>
     </div>

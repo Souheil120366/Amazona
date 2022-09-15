@@ -1,4 +1,7 @@
 import express from 'express';
+import https from 'https';
+import http from 'http';
+import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -9,6 +12,10 @@ import orderRouter from './routes/orderRoutes.js';
 import uploadRouter from './routes/uploadRoutes.js';
 import cors from 'cors';
 
+var options = {
+  key: fs.readFileSync('/var/www/Amazona/backend/privkey.pem'),
+  cert: fs.readFileSync('/var/www/Amazona/backend/fullchain.pem')
+};
 dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -53,6 +60,8 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 5000;
-app.listen(() => {
-  console.log(`serve at http://localhost:${port}`);
-});
+
+https.createServer(options, app).listen(5000, console.log(`Server started on port 5000`));
+//app.listen(() => {
+//  console.log(`serve at http://localhost:${port}`);
+//});

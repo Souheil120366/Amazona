@@ -15,7 +15,7 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 
-const requestUrl = "https://www.skftechnologies.com";
+const requestUrl = 'https://www.skftechnologies.com:5000';
 //const requestUrl = "";
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,27 +41,27 @@ function ProductScreen() {
   });
   useEffect(() => {
     const fetchData = async () => {
-      
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        
-        
-        const result = await axios.get(requestUrl+`/api/products/slug/${slug}`);
+        const result = await axios.get(
+          requestUrl + `/api/products/slug/${slug}`
+        );
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
-        
       }
     };
     fetchData();
   }, [slug]);
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  
+
   const { cart } = state;
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(requestUrl+`/api/products/${product._id}`);
+    const { data } = await axios.get(
+      requestUrl + `/api/products/${product._id}`
+    );
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
@@ -73,10 +73,8 @@ function ProductScreen() {
     navigate('/cart');
   };
   return loading ? (
-    
     <LoadingBox />
   ) : error ? (
-    
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
@@ -135,7 +133,6 @@ function ProductScreen() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      
                       <Button onClick={addToCartHandler} variant="primary">
                         Add to Cart
                       </Button>
