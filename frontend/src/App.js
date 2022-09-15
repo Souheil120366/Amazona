@@ -19,7 +19,7 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from 'react-bootstrap/Button';
 import { getError } from './utils';
@@ -37,9 +37,10 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 
 function App() {
-  
+  const requestUrl = 'https://www.skftechnologies.com:5000';
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  
+
   const { fullBox, cart, userInfo } = state;
 
   const signoutHandler = () => {
@@ -56,7 +57,9 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`);
+        const { data } = await axios.get(
+          requestUrl + `/api/products/categories`
+        );
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -66,28 +69,23 @@ function App() {
   }, []);
 
   return (
-    
     <BrowserRouter>
-    
-    
-    <div
+      <div
         className={
           sidebarIsOpen
-                     
-          ? fullBox
-          ? 'site-container active-cont d-flex flex-column full-box'
-          : 'site-container active-cont d-flex flex-column'
-        : fullBox
-        ? 'site-container d-flex flex-column full-box'
-        : 'site-container d-flex flex-column'
-
+            ? fullBox
+              ? 'site-container active-cont d-flex flex-column full-box'
+              : 'site-container active-cont d-flex flex-column'
+            : fullBox
+            ? 'site-container d-flex flex-column full-box'
+            : 'site-container d-flex flex-column'
         }
-      > 
-    <ToastContainer position="bottom-center" limit={1} />
-      <header>
-        <Navbar bg="dark" variant="dark" expand="lg">
-             <Container>
-             <Button
+      >
+        <ToastContainer position="bottom-center" limit={1} />
+        <header>
+          <Navbar bg="dark" variant="dark" expand="lg">
+            <Container>
+              <Button
                 variant="dark"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
@@ -98,7 +96,7 @@ function App() {
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-              <SearchBox />
+                <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
                     Cart
@@ -130,7 +128,7 @@ function App() {
                       Sign In
                     </Link>
                   )}
-                {userInfo && userInfo.isAdmin && (
+                  {userInfo && userInfo.isAdmin && (
                     <NavDropdown title="Admin" id="admin-nav-dropdown">
                       <LinkContainer to="/admin/dashboard">
                         <NavDropdown.Item>Dashboard</NavDropdown.Item>
@@ -145,13 +143,13 @@ function App() {
                         <NavDropdown.Item>Users</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
-                  )}  
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
           </Navbar>
-      </header>
-      <div
+        </header>
+        <div
           className={
             sidebarIsOpen
               ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
@@ -174,9 +172,8 @@ function App() {
             ))}
           </Nav>
         </div>
-      <main>
-      
-      <Container className="mt-3">
+        <main>
+          <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
@@ -218,7 +215,7 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
-             <Route
+              <Route
                 path="/admin/products"
                 element={
                   <AdminRoute>
@@ -226,7 +223,7 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
-             <Route
+              <Route
                 path="/admin/product/:id"
                 element={
                   <AdminRoute>
@@ -242,7 +239,7 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
-               <Route
+              <Route
                 path="/admin/users"
                 element={
                   <AdminRoute>
@@ -250,7 +247,7 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
-               <Route
+              <Route
                 path="/admin/user/:id"
                 element={
                   <AdminRoute>
@@ -258,7 +255,7 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
-               <Route
+              <Route
                 path="/map"
                 element={
                   <ProtectedRoute>
@@ -269,13 +266,12 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
-      </main>
-      <footer>
+        </main>
+        <footer>
           <div className="text-center">All rights reserved</div>
         </footer>
-    </div>
-  </BrowserRouter>
-
+      </div>
+    </BrowserRouter>
   );
 }
 
