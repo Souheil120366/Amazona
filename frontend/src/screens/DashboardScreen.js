@@ -10,24 +10,24 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
 const reducer = (state, action) => {
-    switch (action.type) {
-      case 'FETCH_REQUEST':
-        return { ...state, loading: true };
-      case 'FETCH_SUCCESS':
-        return {
-          ...state,
-          summary: action.payload,
-          loading: false,
-        };
-      case 'FETCH_FAIL':
-        return { ...state, loading: false, error: action.payload };
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true };
+    case 'FETCH_SUCCESS':
+      return {
+        ...state,
+        summary: action.payload,
+        loading: false,
+      };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export default function DashboardScreen() {
-  
+  const requestUrl = 'https://www.skftechnologies.com:5000';
   const [{ loading, summary, error }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -38,7 +38,7 @@ export default function DashboardScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get('/api/orders/summary', {
+        const { data } = await axios.get(requestUrl + '/api/orders/summary', {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
