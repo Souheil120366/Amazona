@@ -1,6 +1,6 @@
     Options -MultiViews
     RewriteEngine On
-    RewriteCond %{SERVER_PORT} 80
-    RewriteRule ^(.*)$ https://www.skftechnologies.com/$1 [R,L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [QSA,L]
     
     SetEnv JWT_SECRET somethingsecret

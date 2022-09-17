@@ -65,3 +65,12 @@ https.createServer(options, app).listen(5000, console.log(`Server started on por
 //app.listen(() => {
 //  console.log(`serve at http://localhost:${port}`);
 //});
+
+app.use(function(request, response, next) {
+
+  if (process.env.NODE_ENV != 'development' && !request.secure) {
+     return response.redirect("https://" + "www.skftechnologies.com");
+  }
+
+  next();
+})
