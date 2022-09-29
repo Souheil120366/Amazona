@@ -15,8 +15,8 @@ const defaultLocation = { lat: 45.516, lng: -73.56 };
 const libs = ['places'];
 
 export default function MapScreen() {
-  //const requestUrl = "https://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const navigate = useNavigate();

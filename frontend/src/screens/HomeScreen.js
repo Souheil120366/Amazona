@@ -24,8 +24,8 @@ const reducer = (state, action) => {
 };
 
 function HomeScreen() {
-  //const requestUrl = 'https://www.skftechnologies.com:5000';
-  const requestUrl = "";
+  const requestUrl = 'https://www.skftechnologies.com:5000';
+  //const requestUrl = "";
   const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,

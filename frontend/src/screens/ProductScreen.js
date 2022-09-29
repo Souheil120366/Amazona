@@ -31,8 +31,8 @@ const reducer = (state, action) => {
 };
 
 function ProductScreen() {
-  //const requestUrl = 'https://www.skftechnologies.com:5000';
-  const requestUrl = "";
+  const requestUrl = 'https://www.skftechnologies.com:5000';
+  //const requestUrl = "";
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;

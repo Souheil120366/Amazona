@@ -72,8 +72,8 @@ export const ratings = [
 ];
 
 export default function SearchScreen() {
-  //const requestUrl = "https://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const navigate = useNavigate();
   const { search } = useLocation();
   const sp = new URLSearchParams(search); // /search?category=Shirts
