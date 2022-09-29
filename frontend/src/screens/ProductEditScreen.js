@@ -40,8 +40,8 @@ const reducer = (state, action) => {
   }
 };
 export default function ProductEditScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = "";
   const navigate = useNavigate();
   const params = useParams(); // /product/:id
   const { id: productId } = params;
@@ -112,10 +112,10 @@ export default function ProductEditScreen() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('Product updated successfully');
+      toast.success('Product updated successfully',{autoClose: 1000,});
       navigate('/admin/products');
     } catch (err) {
-      toast.error(getError(err));
+      toast.error(getError(err),{autoClose: 1000,});
       dispatch({ type: 'UPDATE_FAIL' });
     }
   };
@@ -134,10 +134,10 @@ export default function ProductEditScreen() {
       });
       dispatch({ type: 'UPLOAD_SUCCESS' });
 
-      toast.success('Image uploaded successfully');
+      toast.success('Image uploaded successfully',{autoClose: 1000,});
       setImage(data.secure_url);
     } catch (err) {
-      toast.error(getError(err));
+      toast.error(getError(err),{autoClose: 1000,});
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
     }
   };

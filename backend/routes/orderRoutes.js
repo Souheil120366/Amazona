@@ -9,10 +9,10 @@ import nodemailer from 'nodemailer';
 const orderRouter = express.Router();
 
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'mail.oxa.host',
   auth: {
-    user: 'khalfallah.souheil@gmail.com',
-    pass: 'eidkvkebxyjtnymz'
+    user: 'admin@skftechnologies.com',
+    pass: '#Souh120366'
   }
 });
 
@@ -38,15 +38,36 @@ orderRouter.post(
       paymentMethod: req.body.paymentMethod,
       itemsPrice: req.body.itemsPrice,
       shippingPrice: req.body.shippingPrice,
-      taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
       user: req.user._id,
       paidAt: req.paidAt,
     });
 
     const order = await newOrder.save();
+    const order_created = await Order.findById(order._id).populate(
+      'user',
+      'email name'
+    );
+    //console.log('user name',order_created.user.name);
     res.status(201).send({ message: 'New Order Created', order });
+
+    var mailOptions = {
+      from: 'admin@skftechnologies.com',
+      to: `${order_created.user.name} <${order_created.user.email}>,khalfallah.souheil@gmail.com`,
+      subject: `New order ${order._id}`,
+      html: payOrderEmailTemplate(order_created),
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    }); 
+
   })
+  
 );
 
 orderRouter.get(
@@ -137,12 +158,12 @@ orderRouter.get(
     '/:id/pay',
     isAuth,
     expressAsyncHandler(async (req, res) => {
-      
+
       const order = await Order.findById(req.params.id).populate(
         'user',
         'email name'
       );
-     
+                 
       if (order) {
         order.isPaid = true;
         order.paidAt = Date.now();
@@ -154,20 +175,7 @@ orderRouter.get(
         };
   
         const updatedOrder = await order.save();
-        var mailOptions = {
-          from: 'khalfallah souheil',
-          to: `${order.user.name} <${order.user.email}>`,
-          subject: `New order ${order._id}`,
-          html: payOrderEmailTemplate(order),
-        };
-
-        transporter.sendMail(mailOptions, function(error, info){
-          if (error) {
-            console.log(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-        }); 
+        
 
         res.send({ message: 'Order Paid', order: updatedOrder });
       } else {

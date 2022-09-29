@@ -27,8 +27,8 @@ const reducer = (state, action) => {
 };
 
 export default function PlaceOrderScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = "";
   const navigate = useNavigate();
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
@@ -40,11 +40,10 @@ export default function PlaceOrderScreen() {
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
-  cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
-  cart.taxPrice = round2(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-
-  console.log('cart',cart);
+  //cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
+  cart.shippingPrice = 7;
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice ;
+  
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
@@ -57,7 +56,6 @@ export default function PlaceOrderScreen() {
           paymentMethod: cart.paymentMethod,
           itemsPrice: cart.itemsPrice,
           shippingPrice: cart.shippingPrice,
-          taxPrice: cart.taxPrice,
           totalPrice: cart.totalPrice,
           
         },
@@ -162,12 +160,6 @@ export default function PlaceOrderScreen() {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
-                    <Col>TND {cart.taxPrice.toFixed(3)}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
                     <Col>
                       <strong> Order Total</strong>
                     </Col>
@@ -183,7 +175,7 @@ export default function PlaceOrderScreen() {
                       onClick={placeOrderHandler}
                       disabled={cart.cartItems.length === 0}
                     >
-                      Place Order
+                      Passer la commande
                     </Button>
                   </div>
                   {loading && <LoadingBox></LoadingBox>}

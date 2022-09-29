@@ -49,7 +49,7 @@ export const isAuth = (req, res, next) => {
     <thead>
     <tr>
     <td><strong>Product</strong></td>
-    <td><strong>Quantity</strong></td>
+    <td><strong align="center">Quantity</strong></td>
     <td><strong align="right">Price</strong></td>
     </thead>
     <tbody>
@@ -59,7 +59,7 @@ export const isAuth = (req, res, next) => {
       <tr>
       <td>${item.name}</td>
       <td align="center">${item.quantity}</td>
-      <td align="right"> $${item.price.toFixed(2)}</td>
+      <td align="right">${item.price.toFixed(3)} TND</td>
       </tr>
     `
       )
@@ -68,19 +68,15 @@ export const isAuth = (req, res, next) => {
     <tfoot>
     <tr>
     <td colspan="2">Items Price:</td>
-    <td align="right"> $${order.itemsPrice.toFixed(2)}</td>
+    <td align="right">${order.itemsPrice.toFixed(3)} TND</td>
     </tr>
     <tr>
     <td colspan="2">Shipping Price:</td>
-    <td align="right"> $${order.shippingPrice.toFixed(2)}</td>
-    </tr>
-    <tr>
-    <td colspan="2">Tax:</td>
-    <td align="right"> $${order.taxPrice.toFixed(2)}</td>
+    <td align="right">${order.shippingPrice.toFixed(3)} TND</td>
     </tr>
     <tr>
     <td colspan="2"><strong>Total Price:</strong></td>
-    <td align="right"><strong> $${order.totalPrice.toFixed(2)}</strong></td>
+    <td align="right"><strong>${order.totalPrice.toFixed(3)} TND</strong></td>
     </tr>
     <tr>
     <td colspan="2">Payment Method:</td>

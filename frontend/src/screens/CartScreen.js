@@ -12,8 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CartScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = "";
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
@@ -39,6 +39,8 @@ export default function CartScreen() {
   };
   return (
     <div>
+      <br></br>
+      <br></br>
       <Helmet>
         <title>Shopping Cart</title>
       </Helmet>
@@ -122,7 +124,7 @@ export default function CartScreen() {
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
-                      Proceed to Checkout
+                      Passer ma commande
                     </Button>
                   </div>
                 </ListGroup.Item>

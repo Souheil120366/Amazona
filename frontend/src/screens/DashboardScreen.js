@@ -27,7 +27,8 @@ const reducer = (state, action) => {
 };
 
 export default function DashboardScreen() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = "";
   const [{ loading, summary, error }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',

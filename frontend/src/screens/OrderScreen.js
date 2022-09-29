@@ -48,11 +48,10 @@ function reducer(state, action) {
   }
 }
 export default function OrderScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = '';
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = '';
   const { state } = useContext(Store);
   const { userInfo } = state;
-
   const params = useParams();
   const { id: orderId } = params;
   const navigate = useNavigate();
@@ -76,12 +75,7 @@ export default function OrderScreen() {
     loadingPay: false,
   });
 
-  //const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-
   
-
-  
-  //console.log('use effect fecth');
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -187,7 +181,7 @@ export default function OrderScreen() {
                     </a>
                   )}
               </Card.Text>
-              {order.isDelivered ? (
+              {order.isDelivered? (
                 <MessageBox variant="success">
                   Delivered at {order.deliveredAt}
                 </MessageBox>
@@ -230,7 +224,7 @@ export default function OrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>${item.price}</Col>
+                      <Col md={3}>{item.price} TND</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -246,19 +240,13 @@ export default function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>${order.itemsPrice.toFixed(2)}</Col>
+                    <Col>TND {order.itemsPrice.toFixed(3)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>${order.shippingPrice.toFixed(2)}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax</Col>
-                    <Col>${order.taxPrice.toFixed(2)}</Col>
+                    <Col>TND {order.shippingPrice.toFixed(3)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -267,12 +255,12 @@ export default function OrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>${order.totalPrice.toFixed(2)}</strong>
+                      <strong>TND {order.totalPrice.toFixed(3)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                {!order.isPaid  && (
-                <ListGroup.Item>
+                {userInfo.isAdmin && !order.isPaid && !order.isDelivered && (
+                  <ListGroup.Item>
                     {loadingDeliver && <LoadingBox></LoadingBox>}
                     <div className="d-grid">
                       <Button type="button" onClick={payOrderHandler}>

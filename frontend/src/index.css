@@ -34,6 +34,7 @@ main {
   margin: 1rem;
 }
 .product img {
+  
   width: 100%;
   max-width: 250px;
 }
@@ -41,6 +42,7 @@ main {
   padding: 1rem;
 }
 .img-large {
+  
   max-width: 100%;
 }
 .img-thumbnail {
@@ -60,6 +62,15 @@ main {
 
 /* sidebar */
 .navbar-brand {
+  font-weight: bold;
+  
+}
+.navbar-text-phone-color {
+  color: #6495ED;
+  
+}
+.navbar-text-brand-color {
+  color: #f08000;
   font-weight: bold;
 }
 .side-navbar {

@@ -10,12 +10,12 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 import uploadRouter from './routes/uploadRoutes.js';
-import cors from 'cors';
+//import cors from 'cors';
 
-var options = {
-  key: fs.readFileSync('/var/www/Amazona/backend/privkey.pem'),
-  cert: fs.readFileSync('/var/www/Amazona/backend/fullchain.pem')
-};
+//var options = {
+//  key: fs.readFileSync('/var/www/Amazona/backend/privkey.pem'),
+//  cert: fs.readFileSync('/var/www/Amazona/backend/fullchain.pem')
+//};
 dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -27,10 +27,10 @@ mongoose
   });
 
 const app = express();
-const cors_options={origin: "https://www.skftechnologies.com"};
-//const cors_options={origin: "https://127.0.0.1"};
+//const cors_options={origin: "https://www.skftechnologies.com"};
 
-app.use(cors(cors_options));
+
+//app.use(cors(cors_options));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -61,16 +61,7 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 5000;
 
-https.createServer(options, app).listen(5000, console.log(`Server started on port 5000`));
-//app.listen(() => {
-//  console.log(`serve at http://localhost:${port}`);
-//});
-
-app.use(function(request, response, next) {
-
-  if (process.env.NODE_ENV != 'development' && !request.secure) {
-     return response.redirect("https://" + "www.skftechnologies.com");
-  }
-
-  next();
-})
+//https.createServer(options, app).listen(5000, console.log(`Server started on port 5000`));
+app.listen(port,() => {
+  console.log(`serve at http://localhost:${port}`);
+});

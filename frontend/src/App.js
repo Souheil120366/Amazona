@@ -37,8 +37,8 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 
 function App() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
-
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = "";
   const { state, dispatch: ctxDispatch } = useContext(Store);
 
   const { fullBox, cart, userInfo } = state;
@@ -83,7 +83,12 @@ function App() {
       >
         <ToastContainer position="bottom-center" limit={1} />
         <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
+          
+          <Navbar className={
+              sidebarIsOpen 
+              ? 'navbar-dark bg-dark variant-dark expand-lg'
+              : 'navbar-dark bg-dark variant-dark expand-lg fixed-top'
+          }>            
             <Container>
               <Button
                 variant="dark"
@@ -97,9 +102,14 @@ function App() {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
+                
                 <Nav className="me-auto  w-100  justify-content-end">
+                <Navbar.Text className="me-5 navbar-text-brand-color bg-dark"> KENT OSMOSEUR</Navbar.Text>  
+                <Navbar.Text className="me-5 ms-5 navbar-text-phone-color bg-dark"><i class="fa fa-fw fa-phone"></i> (+216)94874295</Navbar.Text>
+                
                   <Link to="/cart" className="nav-link">
-                    Cart
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}

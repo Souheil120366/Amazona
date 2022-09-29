@@ -31,7 +31,8 @@ const reducer = (state, action) => {
 };
 
 function ProductScreen() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = "";
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -79,6 +80,8 @@ function ProductScreen() {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+      <br></br>
+      <br></br>
       <Row>
         <Col md={6}>
           <img

@@ -77,10 +77,11 @@ productRouter.get(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const { query } = req;
-    const page = query.page || 1;
-    const pageSize = query.pageSize || PAGE_SIZE;
-
+  const { query } = req;
+  const page = query.page || 1;
+  console.log('query.page',query.page);
+  //const pageSize = query.pageSize || PAGE_SIZE;
+  const pageSize = 5;
     const products = await Product.find()
       .skip(pageSize * (page - 1))
       .limit(pageSize);

@@ -17,7 +17,7 @@ const reducer = (state, action) => {
     case 'FETCH_SUCCESS':
       return {
         ...state,
-        products: action.payload.products,
+        products: action.payload,
         page: action.payload.page,
         pages: action.payload.pages,
         loading: false,
@@ -52,8 +52,8 @@ const reducer = (state, action) => {
 };
 
 export default function ProductListScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = "";
   
   const [
     {
@@ -82,7 +82,7 @@ export default function ProductListScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(requestUrl+`/api/products/admin?page=${page} `, {
+        const { data } = await axios.get(requestUrl+`/api/products`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -96,7 +96,7 @@ export default function ProductListScreen() {
   } else {
     fetchData();
   }
-}, [page, userInfo, successDelete]);
+}, [userInfo, successDelete]);
 
   const createHandler = async () => {
     if (window.confirm('Are you sure to create?')) {
@@ -109,11 +109,11 @@ export default function ProductListScreen() {
             headers: { Authorization: `Bearer ${userInfo.token}` },
           }
         );
-        toast.success('product created successfully');
+        toast.success('product created successfully',{autoClose: 1000,});
         dispatch({ type: 'CREATE_SUCCESS' });
         navigate(`/admin/product/${data.product._id}`);
       } catch (err) {
-        toast.error(getError(error));
+        toast.error(getError(error),{autoClose: 1000,});
         dispatch({
           type: 'CREATE_FAIL',
         });
@@ -127,10 +127,10 @@ export default function ProductListScreen() {
         await axios.delete(requestUrl+`/api/products/${product._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
-        toast.success('product deleted successfully');
+        toast.success('product deleted successfully',{autoClose: 1000,});
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
-        toast.error(getError(error));
+        toast.error(getError(error),{autoClose: 1000,});
         dispatch({
           type: 'DELETE_FAIL',
         });
@@ -140,8 +140,10 @@ export default function ProductListScreen() {
 
   return (
     <div>
-      
+      <br></br>
+      <br></br>
       <Row>
+        
         <Col>
           <h1>Products</h1>
         </Col>
@@ -162,7 +164,7 @@ export default function ProductListScreen() {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-          <table className="table">
+          <table  className="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -203,16 +205,16 @@ export default function ProductListScreen() {
             </tbody>
           </table>
           <div>
-            {[...Array(pages).keys()].map((x) => (
-              <Link
-                className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
-                key={x + 1}
-                to={`/admin/products?page=${x + 1}`}
-              >
-                {x + 1}
-              </Link>
-            ))}
-          </div>
+          {[...Array(pages).keys()].map((x) => (
+            <Link
+              className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
+              key={x + 1}
+              to={`/admin/products?page=${x + 1}`}
+            >
+              {x + 1}
+            </Link>
+          ))}
+        </div>
         </>
       )}
     </div>
