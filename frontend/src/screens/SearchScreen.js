@@ -131,11 +131,12 @@ export default function SearchScreen() {
   };
   return (
     <div>
+      
       <Helmet>
         <title>Search Products</title>
       </Helmet>
       <Row>
-        <Col md={3}>
+        <Col>
           <h3>Department</h3>
           <div>
             <ul>

@@ -1,18 +1,23 @@
 body {
-  margin: 0;
+  margin-top: 19vh;
+  
+  background-image:linear-gradient(blue, white);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.position-relative {
+  position: relative;
+  
+}
 
 .site-container {
-  min-height: 100vh;
+   min-height: 100vh;
 }
 
 main {
-  
   flex: 1;
 }
 
@@ -23,6 +28,7 @@ main {
 }
 .products {
   display: flex;
+  
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -42,8 +48,7 @@ main {
   padding: 1rem;
 }
 .img-large {
-  
-  max-width: 100%;
+   max-width: 100%;
 }
 .img-thumbnail {
   height: 80px;
@@ -66,13 +71,28 @@ main {
   
 }
 .navbar-text-phone-color {
-  color: #6495ED;
+  color: #0a1257;
   
 }
 .navbar-text-brand-color {
   color: #f08000;
   font-weight: bold;
 }
+.navbar-bg-image {
+  background-image: linear-gradient(rgb(0, 119, 255), white);
+  
+}
+.bg-image{
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.mr-auto {
+  
+  margin: auto !important;
+  display: flex;
+  justify-content: space-between;
+  }
 .side-navbar {
   width: 240px;
   height: 100%;
@@ -133,6 +153,23 @@ main {
 .map-input-box button {
   border-radius: 0 1rem 1rem 0;
   border-left: 0;
+}
+.box {
+  width: 240px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.9;
+  
+}
+
+.overlay {
+  z-index: 9;
+  top: 100px;
+  margin: 0px;
+  background: black;
+  transition: 0.5s;
 }
 
 /* Firefox */

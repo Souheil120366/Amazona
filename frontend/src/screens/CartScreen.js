@@ -38,9 +38,8 @@ export default function CartScreen() {
     navigate('/signin?redirect=/shipping');
   };
   return (
-    <div>
-      <br></br>
-      <br></br>
+    <div className="position-relative">
+      
       <Helmet>
         <title>Shopping Cart</title>
       </Helmet>

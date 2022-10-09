@@ -45,12 +45,11 @@ function HomeScreen() {
     fetchData();
   }, []);
   return (
-    <div>
+    <div >
       <Helmet>
         <title>S K F Osmoseur</title>
       </Helmet>
-      <br></br>
-      <br></br>
+      
       <h1>Featured Products</h1>
       <div className="products">
         {loading ? (
@@ -58,15 +57,16 @@ function HomeScreen() {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <Row>
+          <Row >
             {products.map((product) => (
-              <Col key={product.slug} sm={6} md={6} lg={3} className="mb-3" >
+              <Col key={product.slug} sm={4} md={4} lg={3} className="mb-3" >
                 <Product product={product}></Product>
               </Col>
             ))}
           </Row>
         )}
       </div>
+     
     </div>
   );
 }

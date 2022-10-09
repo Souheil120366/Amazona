@@ -12,7 +12,7 @@ var transporter = nodemailer.createTransport({
   host: 'mail.oxa.host',
   auth: {
     user: 'admin@skftechnologies.com',
-    pass: '#Souh120366'
+    pass: '2Erx!0Ku5T'
   }
 });
 
@@ -48,11 +48,12 @@ orderRouter.post(
       'user',
       'email name'
     );
-    //console.log('user name',order_created.user.name);
+    console.log('user name',order_created.user.name);
     res.status(201).send({ message: 'New Order Created', order });
 
     var mailOptions = {
       from: 'admin@skftechnologies.com',
+      //to: 'wajihoxa@gmail.com',
       to: `${order_created.user.name} <${order_created.user.email}>,khalfallah.souheil@gmail.com`,
       subject: `New order ${order._id}`,
       html: payOrderEmailTemplate(order_created),
@@ -63,7 +64,8 @@ orderRouter.post(
         console.log(error);
       } else {
         console.log('Email sent: ' + info.response);
-      }
+      };
+      
     }); 
 
   })
