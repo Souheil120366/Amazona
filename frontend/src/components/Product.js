@@ -31,7 +31,7 @@ function Product(props) {
     });
   };
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card>
       <Link to={`/product/${product.slug}`}>
         <img src={product.image} className="card-img-top" alt={product.name} />
       </Link>

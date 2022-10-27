@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Product from '../components/Product';
@@ -11,6 +11,7 @@ import MessageBox from '../components/MessageBox';
 
 
 const reducer = (state, action) => {
+  
   switch (action.type) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true };
@@ -23,14 +24,39 @@ const reducer = (state, action) => {
   }
 };
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
 function HomeScreen() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
-  //const requestUrl = "";
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = "";
   const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
     error: '',
   });
+
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +70,7 @@ function HomeScreen() {
     };
     fetchData();
   }, []);
+
   return (
     <div >
       <Helmet>
@@ -51,6 +78,7 @@ function HomeScreen() {
       </Helmet>
       
       <h1>Featured Products</h1>
+     
       <div className="products">
         {loading ? (
           <LoadingBox />
@@ -59,7 +87,7 @@ function HomeScreen() {
         ) : (
           <Row >
             {products.map((product) => (
-              <Col key={product.slug} sm={4} md={4} lg={3} className="mb-3" >
+              <Col key={product.slug} xs={6} sm={6} md={8} lg={3} className="mb-3">
                 <Product product={product}></Product>
               </Col>
             ))}

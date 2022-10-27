@@ -1,5 +1,5 @@
 body {
-  margin-top: 19vh;
+  padding-top: 19vh;
   
   background-image:linear-gradient(blue, white);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -73,6 +73,9 @@ main {
 .navbar-text-phone-color {
   color: #0a1257;
   
+}
+.cart-color{
+  color: #08f000; 
 }
 .navbar-text-brand-color {
   color: #f08000;
@@ -166,7 +169,7 @@ main {
 
 .overlay {
   z-index: 9;
-  top: 100px;
+  top: 150px;
   margin: 0px;
   background: black;
   transition: 0.5s;

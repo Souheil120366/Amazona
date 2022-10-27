@@ -31,8 +31,8 @@ const reducer = (state, action) => {
 };
 
 export default function UserEditScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = "";
   const [{ loading, error, loadingUpdate }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -47,6 +47,7 @@ export default function UserEditScreen() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -58,6 +59,7 @@ export default function UserEditScreen() {
         });
         setName(data.name);
         setEmail(data.email);
+        setPhone(data.phone);
         setIsAdmin(data.isAdmin);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
@@ -116,6 +118,15 @@ export default function UserEditScreen() {
             <Form.Label>Email</Form.Label>
             <Form.Control
               value={email}
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="phone">
+            <Form.Label>Phone</Form.Label>
+            <Form.Control
+              value={phone}
               type="email"
               onChange={(e) => setEmail(e.target.value)}
               required

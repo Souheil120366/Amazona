@@ -52,8 +52,8 @@ const reducer = (state, action) => {
 };
 
 export default function ProductListScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = "";
   
   const [
     {

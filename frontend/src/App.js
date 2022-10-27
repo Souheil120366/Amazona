@@ -37,8 +37,8 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 
 function App() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
-  //const requestUrl = '';
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = '';
   const { state, dispatch: ctxDispatch } = useContext(Store);
 
   const { fullBox, cart, userInfo } = state;
@@ -74,12 +74,8 @@ function App() {
         <ToastContainer position="bottom-center" limit={1} />
         <header>
           <Navbar
-            className={
-              sidebarIsOpen
-                ? 'navbar-dark variant-dark  expand-lg fixed-top navbar-bg-image'
-                : 'navbar-dark variant-dark expand-lg fixed-top navbar-bg-image'
-            }
-          >
+            className="navbar-dark variant-dark expand-sm fixed-top navbar-bg-image"
+            >
             <Container fluid>
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="justify-content-right w-100">
@@ -92,7 +88,7 @@ function App() {
                         <i className="fas fa-bars"></i>
                       </Button>
                       <LinkContainer to="/">
-                        <Navbar.Brand>S K F</Navbar.Brand>
+                        <Navbar.Brand className="ms-2">S K F</Navbar.Brand>
                       </LinkContainer>
                       <Navbar.Text className="ms-auto me-auto navbar-text-brand-color ">
                         OSMOSEURS TUNISIE
@@ -103,8 +99,8 @@ function App() {
                     </div>
                     <div className="col-12 mr-auto">
                       <SearchBox />
-                      <Link to="/cart" className="nav-link">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                      <Link to="/cart" className="nav-link cart-color">
+                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
 
                         {cart.cartItems.length > 0 && (
                           <Badge pill bg="danger">
@@ -162,7 +158,7 @@ function App() {
         </header>
 
         <main>
-          <Container className="mt-5">
+           <Container className="mt-3"> 
          
             <div
               className={
