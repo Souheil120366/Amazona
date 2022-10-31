@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 //import pkg from 'cloudinary';
-import { v2 as cloudinary } from 'cloudinary';
+import {v2 as cloudinary}  from 'cloudinary';
 import streamifier from 'streamifier';
 import { isAdmin, isAuth } from '../utils.js';
 

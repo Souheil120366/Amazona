@@ -40,8 +40,8 @@ const reducer = (state, action) => {
   }
 };
 export default function ProductEditScreen() {
-  //const requestUrl = "https://www.skftechnologies.com:5000";
-  const requestUrl = "";
+  const requestUrl = "https://www.skftechnologies.com:5000";
+  //const requestUrl = "";
   const navigate = useNavigate();
   const params = useParams(); // /product/:id
   const { id: productId } = params;

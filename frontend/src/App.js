@@ -37,8 +37,8 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 
 function App() {
-  //const requestUrl = 'https://www.skftechnologies.com:5000';
-  const requestUrl = '';
+  const requestUrl = 'https://www.skftechnologies.com:5000';
+  //const requestUrl = '';
   const { state, dispatch: ctxDispatch } = useContext(Store);
 
   const { fullBox, cart, userInfo } = state;
@@ -76,7 +76,7 @@ function App() {
           <Navbar
             className="navbar-dark variant-dark expand-sm fixed-top navbar-bg-image"
             >
-            <Container fluid>
+            <Container >
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="justify-content-right w-100">
                   <div className="row ms-auto w-100 mr-auto">
@@ -134,7 +134,7 @@ function App() {
                         </Link>
                       )}
                       {userInfo && userInfo.isAdmin && (
-                        <NavDropdown title="Admin" id="admin-nav-dropdown">
+                        <NavDropdown title="Admin" id="admin-nav-dropdown" className="mr-3">
                           <LinkContainer to="/admin/dashboard">
                             <NavDropdown.Item>Dashboard</NavDropdown.Item>
                           </LinkContainer>
