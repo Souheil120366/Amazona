@@ -8,6 +8,10 @@ import logger from 'use-reducer-logger';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+//import Carousel from 'react-bootstrap/Carousel';
+//import Container from 'react-bootstrap/Container';
+import Slide from "../slide.js";
+
 
 
 const reducer = (state, action) => {
@@ -76,6 +80,8 @@ function HomeScreen() {
       <Helmet>
         <title>S K F Osmoseur</title>
       </Helmet>
+      {/*<Slide />*/}
+     
       <h1>Featured Products</h1>
      
       <div className="products">
@@ -86,7 +92,7 @@ function HomeScreen() {
         ) : (
           <Row >
             {products.map((product) => (
-              <Col key={product.slug} xs={6} sm={6} md={8} lg={3} className="mb-3">
+              <Col key={product.slug} xs={6} sm={6} md={3} lg={3} className="mb-3">
                 <Product product={product}></Product>
               </Col>
             ))}

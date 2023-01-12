@@ -13,9 +13,10 @@ import uploadRouter from './routes/uploadRoutes.js';
 import cors from 'cors';
 
 var options = {
-  key: fs.readFileSync('/var/www/Amazona/backend/privkey.pem'),
-  cert: fs.readFileSync('/var/www/Amazona/backend/fullchain.pem')
+  key: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.pem'),
+  cert: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.crt')
 };
+
 dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URI)

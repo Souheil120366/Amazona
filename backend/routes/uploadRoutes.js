@@ -7,6 +7,8 @@ import { isAdmin, isAuth } from '../utils.js';
 
 const upload = multer();
 
+//const { v2 as cloudinary } = pkg;
+
 const uploadRouter = express.Router();
 
 

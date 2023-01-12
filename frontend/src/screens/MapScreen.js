@@ -57,7 +57,7 @@ export default function MapScreen() {
     ctxDispatch({
       type: 'SET_FULLBOX_ON',
     });
-  }, [ctxDispatch]);
+  }, [ctxDispatch,userInfo]);
 
   const onLoad = (map) => {
     mapRef.current = map;
@@ -100,6 +100,7 @@ export default function MapScreen() {
   };
   return (
     <div className="full-box">
+      
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="smaple-map"
