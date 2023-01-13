@@ -14,7 +14,8 @@ import cors from 'cors';
 
 var options = {
   key: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.pem'),
-  cert: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.crt')
+  cert: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.crt'),
+  ca: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.chained.crt')
 };
 
 dotenv.config();
@@ -28,7 +29,7 @@ mongoose
   });
 
 const app = express();
-const cors_options={origin: "https://www.skftechnologies.com"};
+const cors_options = { origin: "https://www.skftechnologies.com" };
 
 
 app.use(cors(cors_options));
@@ -56,7 +57,7 @@ app.get('*', (req, res) =>
 );
 
 app.use((err, req, res, next) => {
-  
+
   res.status(500).send({ message: err.message });
 });
 
