@@ -1,7 +1,7 @@
 import express from 'express';
 import https from 'https';
 //import http from 'http';
-import fs from 'fs';
+//import fs from 'fs';
 import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -9,13 +9,14 @@ import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
-import uploadRouter from './routes/uploadRoutes.js';
+import uploadRouter from './routes/uploadRoute.js';
 import cors from 'cors';
 
+
 var options = {
-  key: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.pem'),
-  cert: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.crt'),
-  ca: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.chained.crt')
+  key: fs.readFileSync('/etc/sectigoSSl/skftechnologies.com.key'),
+  cert: fs.readFileSync('/etc/sectigoSSl/skftechnologies_com.crt'),
+  ca: fs.readFileSync('/etc/sectigoSSl/skftechnologies_com.ca-bundle')
 };
 
 dotenv.config();
@@ -29,8 +30,8 @@ mongoose
   });
 
 const app = express();
-const cors_options = { origin: "https://www.skftechnologies.com" };
-
+const apiurl = process.env.APIURL;
+const cors_options = { origin: apiurl };
 
 app.use(cors(cors_options));
 
@@ -61,7 +62,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 
-const port = process.env.PORT || 5000;
+//const port = process.env.PORT || 5000;
 
 https.createServer(options, app).listen(5000, console.log(`Server started on port 5000`));
 //app.listen(port,() => {

@@ -72,8 +72,8 @@ export const ratings = [
 ];
 
 export default function SearchScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const { search } = useLocation();
   const sp = new URLSearchParams(search); // /search?category=Shirts
@@ -121,14 +121,21 @@ export default function SearchScreen() {
   }, [dispatch]);
 
   const getFilterUrl = (filter) => {
-    const filterPage = filter.page || page;
-    const filterCategory = filter.category || category;
-    const filterQuery = filter.query || query;
-    const filterRating = filter.rating || rating;
-    const filterPrice = filter.price || price;
-    const sortOrder = filter.order || order;
-    return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    const params = new URLSearchParams();
+  
+    if (filter.category || category) params.set("category", filter.category || category);
+    if (filter.query || query) params.set("query", filter.query || query);
+    if (filter.price || price) params.set("price", filter.price || price);
+    if (filter.rating || rating) params.set("rating", filter.rating || rating);
+    if (filter.order || order) params.set("order", filter.order || order);
+    if (filter.page || page) params.set("page", filter.page || page);
+  
+    return {
+      pathname: "/search",
+      search: `?${params.toString()}`,
+    };
   };
+  
   return (
     <div>
       

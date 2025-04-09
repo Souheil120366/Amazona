@@ -1,8 +1,15 @@
+/* Import Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 body {
   padding-top: 9em;
   margin: 0px;
   width: 100%;
-  background-image:linear-gradient(blue, white);
+  background-size: cover; /* Adjust the size of the background image */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent repeating the image */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -37,11 +44,12 @@ main {
   color: #ffc000;
 }
 .product {
+  background-color: #E9E8E6;
   border: 1px #404040 solid;
   margin: 1rem;
 }
 .product img {
-  
+  background-color: #E9E8E6;
   width: 100%;
   max-width: 250px;
 }
@@ -72,18 +80,18 @@ main {
   
 }
 .navbar-text-phone-color {
-  color: #0a1257;
+  color: #cdced4;
   
 }
 .cart-color{
-  color: #08f000; 
+  color: #18BC9C; 
 }
 .navbar-text-brand-color {
-  color: #f08000;
+  color: #2C3E50;
   font-weight: bold;
 }
 .navbar-bg-image {
-  background-image: linear-gradient(rgb(0, 119, 255), white);
+  background-color: #2C3E50;
   
 }
 .bg-image{

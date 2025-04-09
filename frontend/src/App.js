@@ -37,8 +37,8 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 
 function App() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
-  //const requestUrl = '';
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = '';
   const { state, dispatch: ctxDispatch } = useContext(Store);
 
   const { fullBox, cart, userInfo } = state;
@@ -174,7 +174,11 @@ function App() {
                 {categories.map((category) => (
                   <Nav.Item key={category}>
                     <LinkContainer
-                      to={`/search?category=${category}`}
+                      to={{
+                        //`/search?category=${category}`
+                        pathname: "/search",
+                        search: `?category=${encodeURIComponent(category)}`,
+                      }}
                       onClick={() => setSidebarIsOpen(false)}
                     >
                       <Nav.Link>{category}</Nav.Link>

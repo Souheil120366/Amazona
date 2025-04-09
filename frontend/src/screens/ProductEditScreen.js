@@ -40,8 +40,8 @@ const reducer = (state, action) => {
   }
 };
 export default function ProductEditScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const params = useParams(); // /product/:id
   const { id: productId } = params;
@@ -135,7 +135,7 @@ export default function ProductEditScreen() {
       dispatch({ type: 'UPLOAD_SUCCESS' });
 
       toast.success('Image uploaded successfully',{autoClose: 1000,});
-      setImage(data.secure_url);
+      setImage(data.fileUrl);
     } catch (err) {
       toast.error(getError(err),{autoClose: 1000,});
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });

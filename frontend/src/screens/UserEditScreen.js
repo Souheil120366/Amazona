@@ -31,8 +31,8 @@ const reducer = (state, action) => {
 };
 
 export default function UserEditScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = process.env.REACT_APP_API_URL;
   const [{ loading, error, loadingUpdate }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',

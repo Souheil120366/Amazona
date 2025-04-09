@@ -31,8 +31,8 @@ const reducer = (state, action) => {
 };
 
 function ProductScreen() {
-  const requestUrl = 'https://www.skftechnologies.com:5000';
-  //const requestUrl = "";
+  //const requestUrl = 'https://www.skftechnologies.com:5000';
+  const requestUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -82,14 +82,14 @@ function ProductScreen() {
     <div>
      
       <Row>
-        <Col >
+        <Col md={3}>
           <img
             className="img-large"
             src={product.image}
             alt={product.name}
           ></img>
         </Col>
-        <Col >
+        <Col md={6}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <Helmet>
@@ -110,7 +110,7 @@ function ProductScreen() {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col >
+        <Col md={3}>
           <Card>
             <Card.Body>
               <ListGroup variant="flush">

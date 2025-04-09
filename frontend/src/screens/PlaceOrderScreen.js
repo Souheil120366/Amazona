@@ -27,8 +27,8 @@ const reducer = (state, action) => {
 };
 
 export default function PlaceOrderScreen() {
-  const requestUrl = "https://www.skftechnologies.com:5000";
-  //const requestUrl = "";
+  //const requestUrl = "https://www.skftechnologies.com:5000";
+  const requestUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
