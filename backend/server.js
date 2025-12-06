@@ -20,6 +20,16 @@ import cors from 'cors';
 //};
 
 dotenv.config ();
+
+// Set Mongoose strict query option to suppress deprecation warning
+mongoose.set ('strictQuery', false);
+
+// Ensure MONGODB_URI is defined
+if (!process.env.MONGODB_URI) {
+  console.error ('Error: MONGODB_URI is not defined in .env file');
+  process.exit (1);
+}
+
 mongoose
   .connect (process.env.MONGODB_URI)
   .then (() => {

@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link, BrowserRouter, Route, Routes } from 'react-router-dom';
+import {Link, BrowserRouter, Route, Routes} from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { LinkContainer } from 'react-router-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-import { useContext, useEffect, useState } from 'react';
-import { Store } from './Store';
+import {useContext, useEffect, useState} from 'react';
+import {Store} from './Store';
+import {useSessionTimeout} from './hooks/useSessionTimeout';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
@@ -19,10 +20,10 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import { toast, ToastContainer } from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from 'react-bootstrap/Button';
-import { getError } from './utils';
+import {getError} from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
@@ -35,47 +36,51 @@ import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
-import { Card, Placeholder, Col } from 'react-bootstrap';
+import {Card, Placeholder, Col} from 'react-bootstrap';
 import ProductSkeleton from './components/ProductSkeleton';
 import Row from 'react-bootstrap/Row';
 import ProductCard from './components/ProductCard';
 import Footer from './components/Footer';
 
-function App() {
+function App () {
   //const requestUrl = 'https://www.skftechnologies.com:5000';
   const requestUrl = '';
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const {state, dispatch: ctxDispatch} = useContext (Store);
 
-  const { fullBox, cart, userInfo } = state;
+  const {fullBox, cart, userInfo} = state;
+
+  // Activate session timeout (5 minutes of inactivity)
+  useSessionTimeout (5);
 
   const signoutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT' });
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('shippingAddress');
-    localStorage.removeItem('paymentMethod');
+    ctxDispatch ({type: 'USER_SIGNOUT'});
+    localStorage.removeItem ('userInfo');
+    localStorage.removeItem ('cartItems');
+    localStorage.removeItem ('shippingAddress');
+    localStorage.removeItem ('paymentMethod');
     window.location.href = '/signin';
   };
 
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState (false);
+  const [categories, setCategories] = useState ([]);
 
-  useEffect(() => {
+  useEffect (() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(
+        const {data} = await axios.get (
           requestUrl + `/api/products/categories`
         );
-        setCategories(data);
+        setCategories (data);
       } catch (err) {
-        toast.error(getError(err));
+        toast.error (getError (err));
       }
     };
-    fetchCategories();
+    fetchCategories ();
   }, []);
 
-  const showSuccess = (message) => {
-    toast.success(message, {
-      position: "top-right",
+  const showSuccess = message => {
+    toast.success (message, {
+      position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -84,8 +89,8 @@ function App() {
       progress: undefined,
       style: {
         background: '#4caf50',
-        color: 'white'
-      }
+        color: 'white',
+      },
     });
   };
 
@@ -98,7 +103,7 @@ function App() {
             className="navbar-dark variant-dark expand-sm fixed-top navbar-bg-image"
             style={{
               background: 'linear-gradient(to right, #1a1a1a, #333)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
             }}
           >
             <Container fluid>
@@ -108,9 +113,9 @@ function App() {
                     <div className="col-12 mr-auto">
                       <Button
                         variant="dark"
-                        onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
+                        onClick={() => setSidebarIsOpen (!sidebarIsOpen)}
                       >
-                        <i className="fas fa-bars"></i>
+                        <i className="fas fa-bars" />
                       </Button>
                       <LinkContainer to="/">
                         <Navbar.Brand className="ms-2">S K F</Navbar.Brand>
@@ -119,47 +124,55 @@ function App() {
                         OSMOSEURS TUNISIE
                       </Navbar.Text>
                       <Navbar.Text className="justify-content-end navbar-text-phone-color ">
-                        <i class="fa fa-fw fa-phone"></i> (+216)94874295
+                        <i class="fa fa-fw fa-phone" /> (+216)94874295
                       </Navbar.Text>
                     </div>
                     <div className="col-12 mr-auto">
                       <SearchBox />
                       <Link to="/cart" className="nav-link cart-color">
-                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                        <i
+                          class="fa fa-shopping-cart fa-2x"
+                          aria-hidden="true"
+                        />
 
-                        {cart.cartItems.length > 0 && (
+                        {cart.cartItems.length > 0 &&
                           <Badge pill bg="danger">
-                            {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                          </Badge>
-                        )}
+                            {cart.cartItems.reduce (
+                              (a, c) => a + c.quantity,
+                              0
+                            )}
+                          </Badge>}
                       </Link>
-                      {userInfo ? (
-                        <NavDropdown
-                          title={userInfo.name}
-                          id="basic-nav-dropdown"
-                        >
-                          <LinkContainer to="/profile">
-                            <NavDropdown.Item>User Profile</NavDropdown.Item>
-                          </LinkContainer>
-                          <LinkContainer to="/orderhistory">
-                            <NavDropdown.Item>Order History</NavDropdown.Item>
-                          </LinkContainer>
-                          <NavDropdown.Divider />
-                          <Link
-                            className="dropdown-item"
-                            to="#signout"
-                            onClick={signoutHandler}
+                      {userInfo
+                        ? <NavDropdown
+                            title={userInfo.name}
+                            id="basic-nav-dropdown"
                           >
-                            Sign Out
-                          </Link>
-                        </NavDropdown>
-                      ) : (
-                        <Link className="nav-link" to="/signin">
-                          Sign In
-                        </Link>
-                      )}
-                      {userInfo && userInfo.isAdmin && (
-                        <NavDropdown title="Admin" id="admin-nav-dropdown" className="mr-3">
+                            <LinkContainer to="/profile">
+                              <NavDropdown.Item>User Profile</NavDropdown.Item>
+                            </LinkContainer>
+                            <LinkContainer to="/orderhistory">
+                              <NavDropdown.Item>Order History</NavDropdown.Item>
+                            </LinkContainer>
+                            <NavDropdown.Divider />
+                            <Link
+                              className="dropdown-item"
+                              to="#signout"
+                              onClick={signoutHandler}
+                            >
+                              Sign Out
+                            </Link>
+                          </NavDropdown>
+                        : <Link className="nav-link" to="/signin">
+                            Sign In
+                          </Link>}
+                      {userInfo &&
+                        userInfo.isAdmin &&
+                        <NavDropdown
+                          title="Admin"
+                          id="admin-nav-dropdown"
+                          className="mr-3"
+                        >
                           <LinkContainer to="/admin/dashboard">
                             <NavDropdown.Item>Dashboard</NavDropdown.Item>
                           </LinkContainer>
@@ -172,8 +185,7 @@ function App() {
                           <LinkContainer to="/admin/users">
                             <NavDropdown.Item>Users</NavDropdown.Item>
                           </LinkContainer>
-                        </NavDropdown>
-                      )}
+                        </NavDropdown>}
                     </div>
                   </div>
                 </Nav>
@@ -183,8 +195,8 @@ function App() {
         </header>
 
         <main>
-           <Container fluid> 
-         
+          <Container fluid>
+
             <div
               className={
                 sidebarIsOpen
@@ -196,15 +208,15 @@ function App() {
                 <Nav.Item>
                   <strong>Categories</strong>
                 </Nav.Item>
-                {categories.map((category) => (
+                {categories.map (category => (
                   <Nav.Item key={category}>
                     <LinkContainer
                       to={{
                         //`/search?category=${category}`
-                        pathname: "/search",
-                        search: `?category=${encodeURIComponent(category)}`,
+                        pathname: '/search',
+                        search: `?category=${encodeURIComponent (category)}`,
                       }}
-                      onClick={() => setSidebarIsOpen(false)}
+                      onClick={() => setSidebarIsOpen (false)}
                     >
                       <Nav.Link>{category}</Nav.Link>
                     </LinkContainer>
@@ -218,7 +230,7 @@ function App() {
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
-              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
+              <Route path="/payment" element={<PaymentMethodScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route
                 path="/profile"
@@ -235,15 +247,9 @@ function App() {
                     <OrderScreen />
                   </ProtectedRoute>
                 }
-              ></Route>
-              <Route
-                path="/orderhistory"
-                element={<OrderHistoryScreen />}
-              ></Route>
-              <Route
-                path="/shipping"
-                element={<ShippingAddressScreen />}
-              ></Route>
+              />
+              <Route path="/orderhistory" element={<OrderHistoryScreen />} />
+              <Route path="/shipping" element={<ShippingAddressScreen />} />
               {/* Admin Routes */}
               <Route
                 path="/admin/dashboard"
@@ -252,7 +258,7 @@ function App() {
                     <DashboardScreen />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/admin/products"
                 element={
@@ -260,7 +266,7 @@ function App() {
                     <ProductListScreen />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/admin/product/:id"
                 element={
@@ -268,7 +274,7 @@ function App() {
                     <ProductEditScreen />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/admin/orders"
                 element={
@@ -276,7 +282,7 @@ function App() {
                     <OrderListScreen />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/admin/users"
                 element={
@@ -284,7 +290,7 @@ function App() {
                     <UserListScreen />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/admin/user/:id"
                 element={
@@ -292,7 +298,7 @@ function App() {
                     <UserEditScreen />
                   </AdminRoute>
                 }
-              ></Route>
+              />
               <Route
                 path="/map"
                 element={
