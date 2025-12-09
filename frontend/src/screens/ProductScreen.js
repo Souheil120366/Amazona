@@ -68,6 +68,11 @@ function ProductScreen () {
   );
 
   const addToCartHandler = async () => {
+    if (!userInfo) {
+      toast.error ('Please sign in to add items to cart');
+      navigate (`/signin?redirect=/product/${product.slug}`);
+      return;
+    }
     const existItem = cart.cartItems.find (x => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const {data} = await axios.get (
@@ -169,13 +174,13 @@ function ProductScreen () {
 
                       {product.countInStock > 0 &&
                         <ListGroup.Item>
-                          <div className="d-grid">
+                          <div className="d-flex justify-content-center">
                             <Button
                               onClick={addToCartHandler}
                               variant="primary"
-                              size="lg"
+                              className="add-to-cart-btn"
                             >
-                              Add to Cart
+                              <i className="fas fa-cart-plus" />
                             </Button>
                           </div>
                         </ListGroup.Item>}

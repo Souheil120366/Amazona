@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useReducer, useContext} from 'react';
+import {useNavigate} from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Product from '../components/Product';
@@ -9,8 +10,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import ProductSkeleton from '../components/ProductSkeleton';
 import ProductCard from '../components/ProductCard';
-import { toast } from 'react-hot-toast';
-import { Store } from '../Store';
+import {toast} from 'react-hot-toast';
+import {Store} from '../Store';
 //import dotenv from 'dotenv';
 //import Carousel from 'react-bootstrap/Carousel';
 //import Container from 'react-bootstrap/Container';
@@ -58,8 +59,9 @@ function useWindowDimensions () {
 
 function HomeScreen () {
   const requestUrl = process.env.REACT_APP_API_URL || '';
-  const {state, dispatch: ctxDispatch} = useContext(Store);
-  const {cart: {cartItems}} = state;
+  const {state, dispatch: ctxDispatch} = useContext (Store);
+  const {cart: {cartItems}, userInfo} = state;
+  const navigate = useNavigate ();
   const [{loading, error, products}, dispatch] = useReducer (logger (reducer), {
     products: [],
     loading: true,
@@ -69,43 +71,54 @@ function HomeScreen () {
   const {height, width} = useWindowDimensions ();
 
   // Create array of skeletons
-  const loadingSkeletons = Array.from({ length: 8 }).map((_, index) => (
+  const loadingSkeletons = Array.from ({length: 8}).map ((_, index) => (
     <ProductSkeleton key={index} />
   ));
 
-  useEffect (() => {
-    const fetchData = async () => {
-      dispatch ({type: 'FETCH_REQUEST'});
-      try {
-        const result = await axios.get (requestUrl + '/api/products');
-        dispatch ({type: 'FETCH_SUCCESS', payload: result.data});
-      } catch (err) {
-        dispatch ({type: 'FETCH_FAIL', payload: err.message});
-        toast.error('Failed to load products');
-      }
-    };
-    fetchData ();
-  }, [requestUrl]);
+  useEffect (
+    () => {
+      const fetchData = async () => {
+        dispatch ({type: 'FETCH_REQUEST'});
+        try {
+          const result = await axios.get (requestUrl + '/api/products');
+          dispatch ({type: 'FETCH_SUCCESS', payload: result.data});
+        } catch (err) {
+          dispatch ({type: 'FETCH_FAIL', payload: err.message});
+          toast.error ('Failed to load products');
+        }
+      };
+      fetchData ();
+    },
+    [requestUrl]
+  );
 
-  const addToCartHandler = async (product) => {
+  const addToCartHandler = async product => {
+    if (!userInfo) {
+      // prevent adding to cart if not signed in
+      toast.error ('Please sign in to add items to the cart');
+      navigate ('/signin');
+      return;
+    }
     try {
-      const existItem = cartItems.find((x) => x._id === product._id);
+      const existItem = cartItems.find (x => x._id === product._id);
       const quantity = existItem ? existItem.quantity + 1 : 1;
-      const { data } = await axios.get(`${requestUrl}/api/products/${product._id}`);
-      
+      const {data} = await axios.get (
+        `${requestUrl}/api/products/${product._id}`
+      );
+
       if (data.countInStock < quantity) {
-        toast.error('Sorry. Product is out of stock');
+        toast.error ('Sorry. Product is out of stock');
         return;
       }
-      
-      ctxDispatch({
+
+      ctxDispatch ({
         type: 'CART_ADD_ITEM',
-        payload: { ...product, quantity },
+        payload: {...product, quantity},
       });
-      
-      toast.success('Added to cart');
+
+      toast.success ('Added to cart');
     } catch (error) {
-      toast.error('Error adding product to cart');
+      toast.error ('Error adding product to cart');
     }
   };
 
@@ -116,7 +129,9 @@ function HomeScreen () {
       </Helmet>
       {/*<Slide />*/}
 
-      <h1 className="text-5xl pb-4 font-bold text-blue-400">Featured Products</h1>
+      <h1 className="text-5xl pb-4 font-bold text-blue-400">
+        Featured Products
+      </h1>
 
       <div className="products">
         {loading
@@ -126,10 +141,10 @@ function HomeScreen () {
           : error
               ? <MessageBox variant="danger">{error}</MessageBox>
               : <Row xs={1} sm={2} md={3} lg={4} className="g-4">
-                  {products.map((product) => (
+                  {products.map (product => (
                     <Col key={product._id}>
-                      <ProductCard 
-                        product={product} 
+                      <ProductCard
+                        product={product}
                         onAddToCart={addToCartHandler}
                       />
                     </Col>

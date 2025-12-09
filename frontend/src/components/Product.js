@@ -1,11 +1,12 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Rating from './Rating';
 import React from 'react';
 import axios from 'axios';
 import {useContext} from 'react';
 import {Store} from '../Store';
+import {toast} from 'react-toastify';
 
 function Product (props) {
   //const requestUrl = "http://www.skftechnologies.com:5000";
@@ -13,9 +14,15 @@ function Product (props) {
   const {product} = props;
 
   const {state, dispatch: ctxDispatch} = useContext (Store);
-  const {cart: {cartItems}} = state;
+  const {cart: {cartItems}, userInfo} = state;
+  const navigate = useNavigate ();
 
   const addToCartHandler = async item => {
+    if (!userInfo) {
+      toast.error ('Please sign in to add items to cart');
+      navigate ('/signin');
+      return;
+    }
     const existItem = cartItems.find (x => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const {data} = await axios.get (requestUrl + `/api/products/${item._id}`);

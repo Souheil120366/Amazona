@@ -31,7 +31,7 @@ export function useSessionTimeout (timeoutMinutes = 15) {
       localStorage.removeItem ('cartItems');
       localStorage.removeItem ('shippingAddress');
       localStorage.removeItem ('paymentMethod');
-      window.location.href = '/signin';
+      window.location.href = '/';
     }, timeoutMs);
   };
 

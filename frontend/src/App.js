@@ -43,8 +43,7 @@ import ProductCard from './components/ProductCard';
 import Footer from './components/Footer';
 
 function App () {
-  //const requestUrl = 'https://www.skftechnologies.com:5000';
-  const requestUrl = '';
+  const requestUrl = process.env.REACT_APP_API_URL || '';
   const {state, dispatch: ctxDispatch} = useContext (Store);
 
   const {fullBox, cart, userInfo} = state;
@@ -58,7 +57,8 @@ function App () {
     localStorage.removeItem ('cartItems');
     localStorage.removeItem ('shippingAddress');
     localStorage.removeItem ('paymentMethod');
-    window.location.href = '/signin';
+    // Redirect to home page after sign out
+    window.location.href = '/';
   };
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState (false);
