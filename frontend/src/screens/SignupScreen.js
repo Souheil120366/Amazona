@@ -9,7 +9,7 @@ import {useContext, useEffect, useState} from 'react';
 import {Store} from '../Store';
 import {toast} from 'react-toastify';
 import {getError} from '../utils';
-import bcrypt from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 
 export default function SignupScreen () {
   //const requestUrl = "https://www.skftechnologies.com:5000";
@@ -34,8 +34,8 @@ export default function SignupScreen () {
       return;
     }
     try {
-      // Hash password on client side before sending
-      const hashedPassword = bcrypt.hashSync (password, 10);
+      // Hash password on client side using deterministic SHA256
+      const hashedPassword = CryptoJS.SHA256 (password).toString ();
 
       const {data} = await Axios.post (requestUrl + '/api/users/signup', {
         name,

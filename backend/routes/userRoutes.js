@@ -23,20 +23,17 @@ userRouter.post (
     if (user) {
       const incoming = req.body.password || '';
       
-      // Check if incoming password is a bcrypt hash (starts with $2a$, $2b$, or $2y$)
-      const isClientHash = incoming.startsWith('$2a$') || incoming.startsWith('$2b$') || incoming.startsWith('$2y$');
+      console.log('Signin attempt:', {
+        email: req.body.email,
+        incomingLength: incoming.length,
+        storedPasswordLength: user.password.length,
+      });
 
-      let passwordMatch = false;
-
-      if (isClientHash) {
-        // Client sent a bcrypt hash (new client-side hashing enabled)
-        // Compare directly with stored password (which should be double-hashed)
-        passwordMatch = bcrypt.compareSync (incoming, user.password);
-      } else {
-        // Client sent plain password (legacy or fallback)
-        // Try comparing directly (works for single-hash stored passwords)
-        passwordMatch = bcrypt.compareSync (incoming, user.password);
-      }
+      // Simple comparison: client sends bcrypt hash, we stored bcrypt hash
+      // Just compare them as strings since bcrypt hashes from same input will be identical
+      const passwordMatch = incoming === user.password;
+      
+      console.log('Password comparison result:', passwordMatch);
 
       if (passwordMatch) {
         res.send ({
@@ -56,12 +53,21 @@ userRouter.post (
 userRouter.post (
   '/signup',
   expressAsyncHandler (async (req, res) => {
-    // Client sends pre-hashed password, hash it again on server (double-hash)
+    // Client sends pre-hashed password (SHA256 hash from frontend)
+    // Store it directly 
+    const incoming = req.body.password || '';
+    
+    console.log('Signup:', {
+      email: req.body.email,
+      incomingLength: incoming.length,
+      isSHA256: incoming.length === 64, // SHA256 produces 64-char hex strings
+    });
+    
     const newUser = new User ({
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
-      password: bcrypt.hashSync (req.body.password, 8),
+      password: incoming,  // Store the client-hashed password directly
       passwordVersion: 2,
     });
     const user = await newUser.save ();
@@ -85,9 +91,9 @@ userRouter.put (
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.phone = req.body.phone || user.phone;
-      // Client sends pre-hashed password, hash it again on server (double-hash)
+      // Client sends pre-hashed password, store it directly
       if (req.body.password) {
-        user.password = bcrypt.hashSync (req.body.password, 8);
+        user.password = req.body.password;  // Store client hash directly
         user.passwordVersion = 2;
       }
 

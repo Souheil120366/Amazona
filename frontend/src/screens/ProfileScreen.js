@@ -6,7 +6,7 @@ import {Store} from '../Store';
 import {toast} from 'react-toastify';
 import {getError} from '../utils';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,8 +40,10 @@ export default function ProfileScreen () {
   const submitHandler = async e => {
     e.preventDefault ();
     try {
-      // Hash password on client side if provided
-      const hashedPassword = password ? bcrypt.hashSync (password, 10) : '';
+      // Hash password on client side if provided using deterministic SHA256
+      const hashedPassword = password
+        ? CryptoJS.SHA256 (password).toString ()
+        : '';
 
       const {data} = await axios.put (
         requestUrl + '/api/users/profile',
